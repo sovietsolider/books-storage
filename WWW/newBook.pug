@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    div(class="w3-container")
+        div(class="w3-card-4 w3-padding-large" style="margin: 64px")
+            div(class="w3-container")
+                form(action="/new" method="POST" enctype="application/json;charset=utf-8")
+                    p(style="font-weight: bold; font-size: 20px") Название:
+                    input(class="w3-input w3-input w3-border" type="text" name="bookName")
+                    p(style="font-weight: bold; font-size: 20px") Автор:
+                    input(class="w3-input w3-input w3-border" type="text" name="bookAuthor")
+                    p(style="font-weight: bold; font-size: 20px") Дата публикации:
+                    input(class="w3-input w3-input w3-border" type="date" name="bookDate")
+                    //p(style="font-weight: bold; font-size: 20px") ID книги:
+                    //input(class="w3-input w3-input w3-border" type="text" name="bookId")
+                    button(class="w3-button w3-round-xlarge w3-blue" style="margin-top: 24px; margin-bottom: 24px;") Добавить

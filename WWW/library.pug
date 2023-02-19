@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    div(class="w3-container w3-margin")
+        form(action="new" method="GET")
+            button(class="w3-button w3-round-xlarge w3-red") Добавить книгу
+        div(class="w3-dropdown-hover")
+            button(class="w3-button w3-round-xlarge w3-red" style="margin-top:10px;") Фильтры
+            div(class="w3-dropdown-content w3-bar-block w3-border")
+                a(class="w3-bar-item w3-button" onclick="allBooksSort(this)" id="showAllBooks") Все книги
+                a(class="w3-bar-item w3-button" onclick="dateBooksFilter(this)" id="dateBooksFilter") Просроченные
+                //a(class="w3-bar-item w3-button" onclick="dateBooksSort(this)" id="dateBooksSort") По дате:
+                //    input(type="date" style="margin-left: auto; margin-right: auto;")
+                a(class="w3-bar-item w3-button" onclick="inLibSort(this)" id="in_library") В наличии
+                //
+        ul(style="list-style-type: none; margin-left:0px; padding-left:0px;" id="allBooks")
+            for book in books
+                li(id=Date.parse(book.date_return))
+                    div(class="w3-card-4" style="display: visible;" id=book.id)
+                        div(class="w3-container w3-margin")
+                            div(class="w3-row")
+                                div(class="w3-col s6 w3-left-align")
+                                    dialog(id="bookDialog"+book.id style="border: none;")
+                                        p(style="font-size: 20px; font-family: Times New Roman, Times, serif;") Читатель: #{book.person}
+                                        p(style="font-size: 20px; font-family: Times New Roman, Times, serif;") Дата возврата: #{book.date_return}
+                                    p(style="font-weight: bold; font-size: 20px;") #{book.name}
+                                    p #{book.author}
+                                    p #{book.date}
+                                    p В наличии: #{book.in_library}
+                                    //if(book.date_return !== '-')
+                                    //    p Дата возврата: #{book.date_return}
+                                div(class="w3-col s6 w3-right-align")
+                                    div(class="w3-container w3-padding-64")
+                                        form(action="book/"+book.id method="GET")
+                                            button(class="w3-button w3-round-xlarge w3-blue") Редактировать
+                                                i(class="fa-solid fa-pen-to-square" style="margin-left: 10px")
+                                        button(onclick="openBookDialog(this)" class="w3-button w3-round-xlarge w3-blue" style="margin-top:10px;" id="dialogButton_"+book.id) Информация
+    script(src="../SERVER/ajax_backend.js")
+

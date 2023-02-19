@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    div(class="w3-container")
+        div(class="w3-card-4 w3-padding-large" style="margin: 64px")
+            div(class="w3-container")
+                form(action='edit/'+book_id method="POST" enctype="application/json;charset=utf-8")
+                    p(style="font-weight: bold; font-size: 20px") Название:
+                    input(class="w3-input w3-input w3-border" type="text" name="bookName" value=name)
+                    p(style="font-weight: bold; font-size: 20px") Автор:
+                    input(class="w3-input w3-input w3-border" type="text" name="bookAuthor" value=author)
+                    p(style="font-weight: bold; font-size: 20px") Дата публикации:
+                    input(class="w3-input w3-input w3-border" type="date" name="bookDate" value=date)
+                    button(class="w3-button w3-round-xlarge w3-blue" style="margin-top: 24px; margin-bottom: 16px;") Редактировать
+                form(action='delete/' + book_id method="POST" enctype="application/json;charset=utf-8")
+                    button(class="w3-button w3-round-xlarge w3-red" style="margin-bottom: 16px;" onclick="return confirm('Вы уверены?')") Удалить
+                if (in_library == "да")
+                    form(action='give/' + book_id method="POST" enctype="application/json;charset=utf-8")
+                        input(class="w3-input w3-input w3-border" type="text" name="name" style="width: 20%; margin-bottom: 10px;" placeholder="Имя получателя" required)
+                        input(class="w3-input w3-input w3-border" type="date" name="date" style="width: 20%; margin-bottom: 10px;" placeholder="Дата возврата" required)
+                        button(class="w3-button w3-round-xlarge w3-teal" style="margin-bottom: 16px;") Взять книгу
+                else
+                    form(action='back/' + book_id method="POST" enctype="application/json;charset=utf-8")
+                        button(class="w3-button w3-round-xlarge w3-teal") Вернуть
+                    p Взято: #{person}
+                    p Вернуть к: #{date_return}
